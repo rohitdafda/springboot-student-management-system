@@ -1,4 +1,4 @@
-package com.rohitdafda.springbootstudentmanagementsystem.helper;
+package com.rohitdafda.springbootstudentmanagementsystem.helpers;
 
 import com.rohitdafda.springbootstudentmanagementsystem.exceptions.AccessDeniedException;
 import io.jsonwebtoken.Claims;

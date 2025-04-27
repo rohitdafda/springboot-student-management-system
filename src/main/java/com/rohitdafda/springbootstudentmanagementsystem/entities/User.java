@@ -1,4 +1,4 @@
-package com.rohitdafda.springbootstudentmanagementsystem.entity;
+package com.rohitdafda.springbootstudentmanagementsystem.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

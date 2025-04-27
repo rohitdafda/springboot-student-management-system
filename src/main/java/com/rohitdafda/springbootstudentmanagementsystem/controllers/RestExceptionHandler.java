@@ -1,6 +1,6 @@
-package com.rohitdafda.springbootstudentmanagementsystem.controller;
+package com.rohitdafda.springbootstudentmanagementsystem.controllers;
 
-import com.rohitdafda.springbootstudentmanagementsystem.controller.dto.ApiErrorResponse;
+import com.rohitdafda.springbootstudentmanagementsystem.controllers.dto.ApiErrorResponse;
 import com.rohitdafda.springbootstudentmanagementsystem.exceptions.DuplicateException;
 import com.rohitdafda.springbootstudentmanagementsystem.exceptions.NotFoundException;
 import org.springframework.http.ResponseEntity;

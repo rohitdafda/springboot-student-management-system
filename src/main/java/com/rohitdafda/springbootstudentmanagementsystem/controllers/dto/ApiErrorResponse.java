@@ -1,4 +1,4 @@
-package com.rohitdafda.springbootstudentmanagementsystem.controller.dto;
+package com.rohitdafda.springbootstudentmanagementsystem.controllers.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
