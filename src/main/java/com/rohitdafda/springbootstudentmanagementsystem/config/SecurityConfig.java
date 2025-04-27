@@ -1,5 +1,6 @@
 package com.rohitdafda.springbootstudentmanagementsystem.config;
 
+import com.rohitdafda.springbootstudentmanagementsystem.services.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,12 +19,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-//    private final JwtAuthFilter jwtAuthFilter;
-//
-//
-//    public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
-//        this.jwtAuthFilter = jwtAuthFilter;
-//    }
+    private final UserDetailsServiceImpl userDetailsService;
+    private final JwtAuthFilter jwtAuthFilter;
+
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService, JwtAuthFilter jwtAuthFilter) {
+        this.userDetailsService = userDetailsService;
+        this.jwtAuthFilter = jwtAuthFilter;
+
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -36,14 +39,13 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/api/auth/signup").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/swagger-ui/index.html").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/admin-login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/student-login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/authentication-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .authenticationManager(authenticationManager(http))
-//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
@@ -51,7 +53,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-//        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
         return authenticationManagerBuilder.build();
     }
 
