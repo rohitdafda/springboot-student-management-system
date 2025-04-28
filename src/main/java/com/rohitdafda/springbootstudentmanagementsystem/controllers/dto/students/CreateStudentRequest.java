@@ -26,9 +26,5 @@ public record CreateStudentRequest(
         @Schema(description = "dob", example = "2007-01-01")
         @NotBlank(message = "DOB cannot be blank")
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-        LocalDate dob,
-
-        @Schema(description = "studentCode", example = "S00001")
-        @NotBlank(message = "Student Code cannot be blank")
-        String studentCode) {
+        LocalDate dob) {
 }
