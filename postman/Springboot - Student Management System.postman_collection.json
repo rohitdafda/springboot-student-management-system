@@ -1,0 +1,2364 @@
+{
+	"info": {
+		"_postman_id": "8058ad8e-92e6-457d-a56b-cf28e0e9f56b",
+		"name": "Springboot - Student Management System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34714573"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Admin Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const res = pm.response\r",
+									"\r",
+									"if(res.status === \"OK\"){\r",
+									"    const respBody = res.json()\r",
+									"    if(respBody.token){\r",
+									"        pm.environment.set('admin-auth-token', respBody.token)\r",
+									"    }\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"admin@gmail.com\",\r\n    \"password\":\"Admin@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}auth/admin-login",
+							"host": [
+								"{{base-url}}auth"
+							],
+							"path": [
+								"admin-login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Admin Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"admin@gmail.com\",\r\n    \"password\":\"Admin@123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base-url}}auth/admin-login",
+									"host": [
+										"{{base-url}}auth"
+									],
+									"path": [
+										"admin-login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 28 Apr 2025 00:16:40 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"email\": \"admin@gmail.com\",\n    \"token\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NDU3OTk0MDAsImV4cCI6MTc0NTgwMzAwMH0.IaAjKuFH94BYtSdf7Mw4iDeLkT5fWYicqavVUDd5vjQ\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Student Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const res = pm.response\r",
+									"\r",
+									"if(res.status === \"OK\"){\r",
+									"    const respBody = res.json()\r",
+									"    if(respBody.token){\r",
+									"        pm.environment.set('student-auth-token', respBody.token)\r",
+									"    }\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dob\":\"2007-01-01\",\r\n    \"studentCode\":\"0001\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}auth/student-login",
+							"host": [
+								"{{base-url}}auth"
+							],
+							"path": [
+								"student-login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Student",
+					"item": [
+						{
+							"name": "Address",
+							"item": [
+								{
+									"name": "Add Address",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"studentId\": 2,\r\n  \"street\": \"street1\",\r\n  \"area\": \"area1\",\r\n  \"city\": \"city1\",\r\n  \"pincode\": \"pincode1\",\r\n  \"addressType\": \"permenant\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base-url}}admin/addresses/create",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"addresses",
+												"create"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Add Address",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"studentId\": 2,\r\n  \"street\": \"street1\",\r\n  \"area\": \"area1\",\r\n  \"city\": \"city1\",\r\n  \"pincode\": \"pincode1\",\r\n  \"addressType\": \"permenant\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base-url}}admin/addresses/create",
+													"host": [
+														"{{base-url}}admin"
+													],
+													"path": [
+														"addresses",
+														"create"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Content-Type-Options",
+													"value": "nosniff"
+												},
+												{
+													"key": "X-XSS-Protection",
+													"value": "0"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, no-store, max-age=0, must-revalidate"
+												},
+												{
+													"key": "Pragma",
+													"value": "no-cache"
+												},
+												{
+													"key": "Expires",
+													"value": "0"
+												},
+												{
+													"key": "X-Frame-Options",
+													"value": "DENY"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Mon, 28 Apr 2025 17:41:48 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"data\": {\n        \"id\": 2,\n        \"street\": \"street1\",\n        \"area\": \"area1\",\n        \"city\": \"city1\",\n        \"pincode\": \"pincode1\",\n        \"addressType\": \"permenant\"\n    },\n    \"message\": \"Address created successfully\",\n    \"successCode\": 201\n}"
+										}
+									]
+								},
+								{
+									"name": "Update Address",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"studentId\": 2,\r\n  \"street\": \"street1\",\r\n  \"area\": \"area1\",\r\n  \"city\": \"city1\",\r\n  \"pincode\": \"pincode1\",\r\n  \"addressType\": \"correspondence\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base-url}}admin/addresses/1",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"addresses",
+												"1"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Update Address",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"studentId\": 2,\r\n  \"street\": \"street1\",\r\n  \"area\": \"area1\",\r\n  \"city\": \"city1\",\r\n  \"pincode\": \"pincode1\",\r\n  \"addressType\": \"correspondence\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base-url}}admin/addresses/1",
+													"host": [
+														"{{base-url}}admin"
+													],
+													"path": [
+														"addresses",
+														"1"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Content-Type-Options",
+													"value": "nosniff"
+												},
+												{
+													"key": "X-XSS-Protection",
+													"value": "0"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, no-store, max-age=0, must-revalidate"
+												},
+												{
+													"key": "Pragma",
+													"value": "no-cache"
+												},
+												{
+													"key": "Expires",
+													"value": "0"
+												},
+												{
+													"key": "X-Frame-Options",
+													"value": "DENY"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Mon, 28 Apr 2025 17:42:46 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"street\": \"street1\",\n        \"area\": \"area1\",\n        \"city\": \"city1\",\n        \"pincode\": \"pincode1\",\n        \"addressType\": \"correspondence\"\n    },\n    \"message\": \"Address updated successfully\",\n    \"successCode\": 200\n}"
+										}
+									]
+								},
+								{
+									"name": "Get All Addresses of Student",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base-url}}admin/addresses/student/2",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"addresses",
+												"student",
+												"2"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Get All Address of Student",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base-url}}admin/addresses/student/2",
+													"host": [
+														"{{base-url}}admin"
+													],
+													"path": [
+														"addresses",
+														"student",
+														"2"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Content-Type-Options",
+													"value": "nosniff"
+												},
+												{
+													"key": "X-XSS-Protection",
+													"value": "0"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, no-store, max-age=0, must-revalidate"
+												},
+												{
+													"key": "Pragma",
+													"value": "no-cache"
+												},
+												{
+													"key": "Expires",
+													"value": "0"
+												},
+												{
+													"key": "X-Frame-Options",
+													"value": "DENY"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Mon, 28 Apr 2025 17:43:46 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"street\": \"street1\",\n            \"area\": \"area1\",\n            \"city\": \"city1\",\n            \"pincode\": \"pincode1\",\n            \"addressType\": \"correspondence\"\n        },\n        {\n            \"id\": 2,\n            \"street\": \"street1\",\n            \"area\": \"area1\",\n            \"city\": \"city1\",\n            \"pincode\": \"pincode1\",\n            \"addressType\": \"permenant\"\n        }\n    ],\n    \"message\": \"Addresses fetched for student ID: 2\",\n    \"successCode\": 200\n}"
+										}
+									]
+								},
+								{
+									"name": "Delete Address",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{base-url}}admin/addresses/2",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"addresses",
+												"2"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Delete Address",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{base-url}}admin/addresses/2",
+													"host": [
+														"{{base-url}}admin"
+													],
+													"path": [
+														"addresses",
+														"2"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Content-Type-Options",
+													"value": "nosniff"
+												},
+												{
+													"key": "X-XSS-Protection",
+													"value": "0"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, no-store, max-age=0, must-revalidate"
+												},
+												{
+													"key": "Pragma",
+													"value": "no-cache"
+												},
+												{
+													"key": "Expires",
+													"value": "0"
+												},
+												{
+													"key": "X-Frame-Options",
+													"value": "DENY"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Mon, 28 Apr 2025 17:44:34 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"message\": \"Address deleted successfully\",\n    \"successCode\": 200\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Create Student",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NDU4NTcwNDMsImV4cCI6MTc0NTg2MDY0M30.o5nYz0ZdnkSiV_Aa2ZkgDi52WyGkQY1L2H1md8tH87I"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"John\",\n  \"gender\": \"male\",\n  \"fatherName\": \"Jack\",\n  \"motherName\": \"Jane\",\n  \"dob\": \"2007-01-01\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base-url}}admin/students/create-student",
+									"host": [
+										"{{base-url}}admin"
+									],
+									"path": [
+										"students",
+										"create-student"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create Student",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NDU4NTcwNDMsImV4cCI6MTc0NTg2MDY0M30.o5nYz0ZdnkSiV_Aa2ZkgDi52WyGkQY1L2H1md8tH87I"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"John\",\n  \"gender\": \"male\",\n  \"fatherName\": \"Jack\",\n  \"motherName\": \"Jane\",\n  \"dob\": \"2007-01-01\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base-url}}admin/students/create-student",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"students",
+												"create-student"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 28 Apr 2025 16:25:48 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"id\": 10,\n        \"name\": \"John\",\n        \"dob\": \"2007-01-01\",\n        \"gender\": \"male\",\n        \"studentCode\": \"0008\",\n        \"motherName\": \"Jane\",\n        \"fatherName\": \"Jack\"\n    },\n    \"message\": \"Student Created\",\n    \"successCode\": 201\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Student",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NDU4NTcwNDMsImV4cCI6MTc0NTg2MDY0M30.o5nYz0ZdnkSiV_Aa2ZkgDi52WyGkQY1L2H1md8tH87I"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"John\",\n  \"gender\": \"male\",\n  \"fatherName\": \"Jack\",\n  \"motherName\": \"Jane\",\n  \"dob\": \"2007-01-01\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base-url}}admin/students/update/2",
+									"host": [
+										"{{base-url}}admin"
+									],
+									"path": [
+										"students",
+										"update",
+										"2"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Update Student",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NDU4NTcwNDMsImV4cCI6MTc0NTg2MDY0M30.o5nYz0ZdnkSiV_Aa2ZkgDi52WyGkQY1L2H1md8tH87I"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"John\",\n  \"gender\": \"male\",\n  \"fatherName\": \"Jack\",\n  \"motherName\": \"Jane\",\n  \"dob\": \"2007-01-01\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base-url}}admin/students/update/2",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"students",
+												"update",
+												"2"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 28 Apr 2025 16:46:55 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"John\",\n        \"dob\": \"2007-01-01\",\n        \"gender\": \"male\",\n        \"studentCode\": \"0001\",\n        \"motherName\": \"Jane\",\n        \"fatherName\": \"Jack\"\n    },\n    \"message\": \"Student updated successfully\",\n    \"successCode\": 200\n}"
+								}
+							]
+						},
+						{
+							"name": "Get Student By id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}admin/students/2",
+									"host": [
+										"{{base-url}}admin"
+									],
+									"path": [
+										"students",
+										"2"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get Student By id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base-url}}admin/students/1",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"students",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 28 Apr 2025 16:49:49 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"John\",\n        \"dob\": null,\n        \"gender\": \"male\",\n        \"studentCode\": \"0001\",\n        \"motherName\": \"Jane\",\n        \"fatherName\": \"Jack\"\n    },\n    \"message\": \"Student fetched successfully\",\n    \"successCode\": 200\n}"
+								}
+							]
+						},
+						{
+							"name": "Get All Students",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}admin/students/all",
+									"host": [
+										"{{base-url}}admin"
+									],
+									"path": [
+										"students",
+										"all"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get All Students",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base-url}}admin/students/all",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"students",
+												"all"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 28 Apr 2025 16:50:54 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0001\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"John\",\n            \"dob\": \"2007-01-01\",\n            \"gender\": \"male\",\n            \"studentCode\": \"0001\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0001\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0002\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0003\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\"\n        },\n        {\n            \"id\": 6,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0004\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\"\n        },\n        {\n            \"id\": 7,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0005\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\"\n        },\n        {\n            \"id\": 8,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0006\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\"\n        },\n        {\n            \"id\": 9,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0007\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\"\n        },\n        {\n            \"id\": 10,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0008\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\"\n        }\n    ],\n    \"message\": \"Students fetched successfully\",\n    \"successCode\": 200\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete Student",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}admin/students/delete/1",
+									"host": [
+										"{{base-url}}admin"
+									],
+									"path": [
+										"students",
+										"delete",
+										"1"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Delete Student",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{base-url}}admin/students/delete/1",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"students",
+												"delete",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 28 Apr 2025 17:03:46 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Student deleted successfully\",\n    \"successCode\": 200\n}"
+								}
+							]
+						},
+						{
+							"name": "Get Student By name",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}admin/students/by-name?name=john",
+									"host": [
+										"{{base-url}}admin"
+									],
+									"path": [
+										"students",
+										"by-name"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "john"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get Student By Name",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base-url}}admin/students/by-name?name=john",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"students",
+												"by-name"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "john"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 28 Apr 2025 17:52:22 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": [\n        {\n            \"id\": 2,\n            \"name\": \"John\",\n            \"dob\": \"2007-01-01\",\n            \"gender\": \"male\",\n            \"studentCode\": \"0001\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [\n                {\n                    \"id\": 1,\n                    \"street\": \"street1\",\n                    \"area\": \"area1\",\n                    \"city\": \"city1\",\n                    \"pincode\": \"pincode1\",\n                    \"addressType\": \"correspondence\"\n                }\n            ],\n            \"courses\": [\n                {\n                    \"id\": 2,\n                    \"name\": \"Course 1\",\n                    \"description\": \"Course Number 1\",\n                    \"type\": \"Long Term\",\n                    \"duration\": 122,\n                    \"topics\": [\n                        \"CS\",\n                        \"CE\"\n                    ]\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Course 1\",\n                    \"description\": \"Course Number 1\",\n                    \"type\": \"Long Term\",\n                    \"duration\": 122,\n                    \"topics\": [\n                        \"CS\",\n                        \"CE\"\n                    ]\n                }\n            ]\n        },\n        {\n            \"id\": 3,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0001\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [],\n            \"courses\": []\n        },\n        {\n            \"id\": 4,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0002\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [],\n            \"courses\": []\n        },\n        {\n            \"id\": 5,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0003\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [],\n            \"courses\": []\n        },\n        {\n            \"id\": 6,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0004\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [],\n            \"courses\": []\n        },\n        {\n            \"id\": 7,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0005\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [],\n            \"courses\": []\n        },\n        {\n            \"id\": 8,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0006\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [],\n            \"courses\": []\n        },\n        {\n            \"id\": 9,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0007\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [],\n            \"courses\": []\n        },\n        {\n            \"id\": 10,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0008\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [],\n            \"courses\": []\n        }\n    ],\n    \"message\": \"Students fetched successfully\",\n    \"successCode\": 200\n}"
+								}
+							]
+						},
+						{
+							"name": "Fetch Students by Course Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}admin/students/by-course?courseId=2",
+									"host": [
+										"{{base-url}}admin"
+									],
+									"path": [
+										"students",
+										"by-course"
+									],
+									"query": [
+										{
+											"key": "courseId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Fetch Students by Course Id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base-url}}admin/students/by-course?courseId=2",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"students",
+												"by-course"
+											],
+											"query": [
+												{
+													"key": "courseId",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 28 Apr 2025 17:54:17 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": [\n        {\n            \"id\": 2,\n            \"name\": \"John\",\n            \"dob\": \"2007-01-01\",\n            \"gender\": \"male\",\n            \"studentCode\": \"0001\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [\n                {\n                    \"id\": 1,\n                    \"street\": \"street1\",\n                    \"area\": \"area1\",\n                    \"city\": \"city1\",\n                    \"pincode\": \"pincode1\",\n                    \"addressType\": \"correspondence\"\n                }\n            ],\n            \"courses\": [\n                {\n                    \"id\": 2,\n                    \"name\": \"Course 1\",\n                    \"description\": \"Course Number 1\",\n                    \"type\": \"Long Term\",\n                    \"duration\": 122,\n                    \"topics\": [\n                        \"CS\",\n                        \"CE\"\n                    ]\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Course 1\",\n                    \"description\": \"Course Number 1\",\n                    \"type\": \"Long Term\",\n                    \"duration\": 122,\n                    \"topics\": [\n                        \"CS\",\n                        \"CE\"\n                    ]\n                }\n            ]\n        }\n    ],\n    \"message\": \"Students fetched successfully\",\n    \"successCode\": 200\n}"
+								}
+							]
+						},
+						{
+							"name": "Search Students",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}admin/students/search?name=john",
+									"host": [
+										"{{base-url}}admin"
+									],
+									"path": [
+										"students",
+										"search"
+									],
+									"query": [
+										{
+											"key": "courseId",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "name",
+											"value": "john"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Search Students",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base-url}}admin/students/search?name=john",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"students",
+												"search"
+											],
+											"query": [
+												{
+													"key": "courseId",
+													"value": "2",
+													"disabled": true
+												},
+												{
+													"key": "name",
+													"value": "john"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 28 Apr 2025 17:58:06 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": [\n        {\n            \"id\": 2,\n            \"name\": \"John\",\n            \"dob\": \"2007-01-01\",\n            \"gender\": \"male\",\n            \"studentCode\": \"0001\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [\n                {\n                    \"id\": 1,\n                    \"street\": \"street1\",\n                    \"area\": \"area1\",\n                    \"city\": \"city1\",\n                    \"pincode\": \"pincode1\",\n                    \"addressType\": \"correspondence\"\n                }\n            ],\n            \"courses\": [\n                {\n                    \"id\": 2,\n                    \"name\": \"Course 1\",\n                    \"description\": \"Course Number 1\",\n                    \"type\": \"Long Term\",\n                    \"duration\": 122,\n                    \"topics\": [\n                        \"CS\",\n                        \"CE\"\n                    ]\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Course 1\",\n                    \"description\": \"Course Number 1\",\n                    \"type\": \"Long Term\",\n                    \"duration\": 122,\n                    \"topics\": [\n                        \"CS\",\n                        \"CE\"\n                    ]\n                }\n            ]\n        },\n        {\n            \"id\": 3,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0001\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [],\n            \"courses\": []\n        },\n        {\n            \"id\": 4,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0002\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [],\n            \"courses\": []\n        },\n        {\n            \"id\": 5,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0003\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [],\n            \"courses\": []\n        },\n        {\n            \"id\": 6,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0004\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [],\n            \"courses\": []\n        },\n        {\n            \"id\": 7,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0005\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [],\n            \"courses\": []\n        },\n        {\n            \"id\": 8,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0006\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [],\n            \"courses\": []\n        },\n        {\n            \"id\": 9,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0007\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [],\n            \"courses\": []\n        },\n        {\n            \"id\": 10,\n            \"name\": \"John\",\n            \"dob\": null,\n            \"gender\": \"male\",\n            \"studentCode\": \"0008\",\n            \"motherName\": \"Jane\",\n            \"fatherName\": \"Jack\",\n            \"addresses\": [],\n            \"courses\": []\n        }\n    ],\n    \"message\": \"Students fetched successfully\",\n    \"successCode\": 200\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Courses",
+					"item": [
+						{
+							"name": "Create Course",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Course 2\",\r\n  \"description\": \"Course Number 2\",\r\n  \"type\": \"Short Term\",\r\n  \"duration\": 20,\r\n  \"topics\": [\r\n    \"Physics\",\r\n    \"Electricity\"\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base-url}}admin/courses/create",
+									"host": [
+										"{{base-url}}admin"
+									],
+									"path": [
+										"courses",
+										"create"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create Course",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Course 1\",\r\n  \"description\": \"Course Number 1\",\r\n  \"type\": \"Long Term\",\r\n  \"duration\": 122,\r\n  \"topics\": [\r\n    \"string\"\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base-url}}admin/courses/create",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"courses",
+												"create"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 28 Apr 2025 17:06:27 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Course 1\",\n        \"description\": \"Course Number 1\",\n        \"type\": \"Long Term\",\n        \"duration\": 122,\n        \"topics\": [\n            \"string\"\n        ],\n        \"students\": null\n    },\n    \"message\": \"Course created successfully\",\n    \"successCode\": 201\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Course",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Course 11\",\r\n  \"description\": \"Course Number 11\",\r\n  \"type\": \"Long Term\",\r\n  \"duration\": 122,\r\n  \"topics\": [\r\n    \"EE\",\r\n    \"BE\"\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base-url}}admin/courses/update/1",
+									"host": [
+										"{{base-url}}admin"
+									],
+									"path": [
+										"courses",
+										"update",
+										"1"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Update Course",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Course 11\",\r\n  \"description\": \"Course Number 11\",\r\n  \"type\": \"Long Term\",\r\n  \"duration\": 122,\r\n  \"topics\": [\r\n    \"CSE\",\r\n    \"BE\"\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base-url}}admin/courses/update/1",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"courses",
+												"update",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 28 Apr 2025 17:08:11 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Course 11\",\n        \"description\": \"Course Number 11\",\n        \"type\": \"Long Term\",\n        \"duration\": 122,\n        \"topics\": [\n            \"BE\",\n            \"EE\"\n        ],\n        \"students\": []\n    },\n    \"message\": \"Course updated successfully\",\n    \"successCode\": 200\n}"
+								}
+							]
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}admin/courses/all",
+									"host": [
+										"{{base-url}}admin"
+									],
+									"path": [
+										"courses",
+										"all"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get All",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base-url}}admin/courses/all",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"courses",
+												"all"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 28 Apr 2025 17:09:22 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Course 11\",\n            \"description\": \"Course Number 11\",\n            \"type\": \"Long Term\",\n            \"duration\": 122,\n            \"topics\": [\n                \"EE\",\n                \"BE\"\n            ],\n            \"students\": []\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Course 1\",\n            \"description\": \"Course Number 1\",\n            \"type\": \"Long Term\",\n            \"duration\": 122,\n            \"topics\": [\n                \"CS\",\n                \"CE\"\n            ],\n            \"students\": []\n        }\n    ],\n    \"message\": \"Courses fetched successfully\",\n    \"successCode\": 200\n}"
+								}
+							]
+						},
+						{
+							"name": "Get Course By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}admin/courses/2",
+									"host": [
+										"{{base-url}}admin"
+									],
+									"path": [
+										"courses",
+										"2"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get Course By Id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base-url}}admin/courses/1",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"courses",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 28 Apr 2025 17:11:38 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Course 11\",\n        \"description\": \"Course Number 11\",\n        \"type\": \"Long Term\",\n        \"duration\": 122,\n        \"topics\": [\n            \"EE\",\n            \"BE\"\n        ],\n        \"students\": []\n    },\n    \"message\": \"Course fetched successfully\",\n    \"successCode\": 200\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete Course",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}admin/courses/delete/1",
+									"host": [
+										"{{base-url}}admin"
+									],
+									"path": [
+										"courses",
+										"delete",
+										"1"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Delete Course",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{base-url}}admin/courses/delete/1",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"courses",
+												"delete",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 28 Apr 2025 17:12:19 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Course deleted successfully\",\n    \"successCode\": 200\n}"
+								}
+							]
+						},
+						{
+							"name": "Assign Courses",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"studentId\": 2,\r\n  \"courseIds\": [\r\n    3,2\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base-url}}admin/courses/assign",
+									"host": [
+										"{{base-url}}admin"
+									],
+									"path": [
+										"courses",
+										"assign"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Assign Course to student",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"studentId\": 2,\r\n  \"courseIds\": [\r\n    1,2,3\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base-url}}admin/courses/assign",
+											"host": [
+												"{{base-url}}admin"
+											],
+											"path": [
+												"courses",
+												"assign"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 28 Apr 2025 17:22:30 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Courses assigned to student successfully.\",\n    \"successCode\": 200\n}"
+								}
+							]
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{admin-auth-token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Students",
+			"item": [
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"johnwick@table.com\",\r\n  \"phoneNumber\": \"9990009990\",\r\n  \"motherName\": \"Lisa\",\r\n  \"fatherName\": \"Montoe\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}student/profile/update?studentId=2",
+							"host": [
+								"{{base-url}}student"
+							],
+							"path": [
+								"profile",
+								"update"
+							],
+							"query": [
+								{
+									"key": "studentId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Profile",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"johnwick@table.com\",\r\n  \"phoneNumber\": \"9990009990\",\r\n  \"motherName\": \"Lisa\",\r\n  \"fatherName\": \"Montoe\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base-url}}student/profile/update?studentId=2",
+									"host": [
+										"{{base-url}}student"
+									],
+									"path": [
+										"profile",
+										"update"
+									],
+									"query": [
+										{
+											"key": "studentId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 28 Apr 2025 18:48:46 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"John\",\n        \"email\": \"johnwick@table.com\",\n        \"phoneNumber\": \"9990009990\",\n        \"dob\": \"2007-01-01\",\n        \"gender\": \"male\",\n        \"studentCode\": \"0001\",\n        \"motherName\": \"Lisa\",\n        \"fatherName\": \"Montoe\",\n        \"addresses\": [\n            {\n                \"id\": 1,\n                \"street\": \"street1\",\n                \"area\": \"area1\",\n                \"city\": \"city1\",\n                \"pincode\": \"pincode1\",\n                \"addressType\": \"correspondence\"\n            }\n        ],\n        \"courses\": [\n            {\n                \"id\": 2,\n                \"name\": \"Course 1\",\n                \"description\": \"Course Number 1\",\n                \"type\": \"Long Term\",\n                \"duration\": 122,\n                \"topics\": [\n                    \"CS\",\n                    \"CE\"\n                ]\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Course 1\",\n                \"description\": \"Course Number 1\",\n                \"type\": \"Long Term\",\n                \"duration\": 122,\n                \"topics\": [\n                    \"CS\",\n                    \"CE\"\n                ]\n            }\n        ]\n    },\n    \"message\": \"Profile updated successfully\",\n    \"successCode\": 200\n}"
+						}
+					]
+				},
+				{
+					"name": "Leave Course",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}student/courses/leave/2?studentId=2",
+							"host": [
+								"{{base-url}}student"
+							],
+							"path": [
+								"courses",
+								"leave",
+								"2"
+							],
+							"query": [
+								{
+									"key": "studentId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Leave Course",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}student/courses/leave/2?studentId=2",
+									"host": [
+										"{{base-url}}student"
+									],
+									"path": [
+										"courses",
+										"leave",
+										"2"
+									],
+									"query": [
+										{
+											"key": "studentId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 28 Apr 2025 18:51:22 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Course left successfully\",\n    \"successCode\": 200\n}"
+						}
+					]
+				},
+				{
+					"name": "Search Assigned Courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}student/courses/search?studentId=2&name=Course 1",
+							"host": [
+								"{{base-url}}student"
+							],
+							"path": [
+								"courses",
+								"search"
+							],
+							"query": [
+								{
+									"key": "studentId",
+									"value": "2"
+								},
+								{
+									"key": "name",
+									"value": "Course 1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Search Assigned Courses",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}student/courses/search?studentId=2&name=Course 1",
+									"host": [
+										"{{base-url}}student"
+									],
+									"path": [
+										"courses",
+										"search"
+									],
+									"query": [
+										{
+											"key": "studentId",
+											"value": "2"
+										},
+										{
+											"key": "name",
+											"value": "Course 1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 28 Apr 2025 19:00:04 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 2,\n            \"name\": \"Course 1\",\n            \"description\": \"Course Number 1\",\n            \"type\": \"Long Term\",\n            \"duration\": 122,\n            \"topics\": [\n                \"CS\",\n                \"CE\"\n            ]\n        }\n    ],\n    \"message\": \"Courses fetched successfully\",\n    \"successCode\": 200\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
