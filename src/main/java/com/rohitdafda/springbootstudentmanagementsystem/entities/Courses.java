@@ -1,5 +1,6 @@
 package com.rohitdafda.springbootstudentmanagementsystem.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -26,6 +27,7 @@ public class Courses {
     private List<String> topics;
 
     @ManyToMany(mappedBy = "courses")
+    @JsonBackReference
     private List<Student> students;  // Many-to-many relationship with Student
 
     public Courses() {

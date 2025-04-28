@@ -1,5 +1,6 @@
 package com.rohitdafda.springbootstudentmanagementsystem.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ public class Student {
     private String fatherName;
 
     @OneToMany(mappedBy = "student")
+    @JsonManagedReference
     private List<StudentAddress> addresses;
 
     @ManyToMany
@@ -27,6 +29,7 @@ public class Student {
             joinColumns = @JoinColumn(name = "student_id"),  // Column for student reference
             inverseJoinColumns = @JoinColumn(name = "course_id")  // Column for course reference
     )
+    @JsonManagedReference
     private List<Courses> courses;
 
     public Student() {

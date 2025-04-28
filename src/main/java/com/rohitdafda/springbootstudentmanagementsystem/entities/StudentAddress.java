@@ -1,5 +1,6 @@
 package com.rohitdafda.springbootstudentmanagementsystem.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -13,6 +14,7 @@ public class StudentAddress {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
+    @JsonIgnore
     private Student student;
 
     private String street;
@@ -26,7 +28,6 @@ public class StudentAddress {
 
     @NotNull
     private String addressType; // "permanent", "correspondence", "current"
-
 
     public StudentAddress() {
         super();
