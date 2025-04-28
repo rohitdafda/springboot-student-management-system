@@ -46,4 +46,6 @@ cd springboot-student-management-system
 
 ### 3. Open & Run the project in any IDE and configure the application.properties accordingly.
 
+### 4. Open Swagger doc from this url: http://localhost:9001/authentication-docs/swagger-ui/index.html#/
+
 
