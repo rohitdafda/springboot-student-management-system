@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -92,5 +93,32 @@ public class StudentService {
         } catch (NumberFormatException e) {
             throw new RuntimeException("Invalid student code format: " + lastStudent.getStudentCode());
         }
+    }
+
+    public List<Student> getStudentsByName(String name) {
+        return repository.findByNameContainingIgnoreCase(name);
+    }
+
+    public List<Student> getStudentsByCourseId(int courseId) {
+        return repository.findByCoursesId(courseId);
+    }
+
+    public List<Student> searchStudents(String name, Integer courseId) {
+        List<Student> students = repository.findAll();
+
+        if (name != null && !name.isBlank()) {
+            students = students.stream()
+                    .filter(student -> student.getName() != null && student.getName().toLowerCase().contains(name.toLowerCase()))
+                    .collect(Collectors.toList());
+        }
+
+        if (courseId != null) {
+            students = students.stream()
+                    .filter(student -> student.getCourses() != null &&
+                            student.getCourses().stream().anyMatch(course -> course.getId() == courseId))
+                    .collect(Collectors.toList());
+        }
+
+        return students;
     }
 }

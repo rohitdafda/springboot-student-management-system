@@ -65,4 +65,27 @@ public class StudentController {
         studentService.deleteStudent(id);
         return GlobalResponseHandler.deleted("Student deleted successfully");
     }
+
+    @Operation(summary = "Search Student by Name")
+    @GetMapping("/by-name")
+    public ResponseEntity<GlobalResponse<Object>> getStudentsByName(@RequestParam("name") String name) {
+        List<Student> students = studentService.getStudentsByName(name);
+        return GlobalResponseHandler.ok(students, "Students fetched successfully");
+    }
+
+    @Operation(summary = "Fetch students by course id")
+    @GetMapping("/by-course")
+    public ResponseEntity<GlobalResponse<Object>> getStudentsByCourse(@RequestParam("courseId") int courseId) {
+        List<Student> students = studentService.getStudentsByCourseId(courseId);
+        return GlobalResponseHandler.ok(students, "Students fetched successfully");
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<GlobalResponse<Object>> searchStudents(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Integer courseId
+    ) {
+        List<Student> students = studentService.searchStudents(name, courseId);
+        return GlobalResponseHandler.ok(students, "Students fetched successfully");
+    }
 }

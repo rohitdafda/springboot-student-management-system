@@ -12,5 +12,10 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     List<Student> findAllByOrderByIdDesc();
 
     Optional<Student> findById(int id);
+
+    List<Student> findByNameContainingIgnoreCase(String name);
+
+    List<Student> findByCoursesId(int courseId);
+
 }
 
