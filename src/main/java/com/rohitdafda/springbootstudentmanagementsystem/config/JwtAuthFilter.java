@@ -37,10 +37,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
       String token = null;
       String username = null;
+      String role = null;
       if (authHeader != null && authHeader.startsWith("Bearer ")) {
         token = authHeader.substring(7);
         username = JwtHelper.extractUsername(token);
+        role = JwtHelper.extractRole(token);
       }
+
+      System.out.println(role);
 
       if (token == null) {
         filterChain.doFilter(request, response);
