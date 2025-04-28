@@ -80,6 +80,7 @@ public class StudentController {
         return GlobalResponseHandler.ok(students, "Students fetched successfully");
     }
 
+    @Operation(summary = "Search Students by name or courseId or both")
     @GetMapping("/search")
     public ResponseEntity<GlobalResponse<Object>> searchStudents(
             @RequestParam(required = false) String name,

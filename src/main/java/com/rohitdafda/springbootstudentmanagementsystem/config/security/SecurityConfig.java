@@ -1,5 +1,6 @@
-package com.rohitdafda.springbootstudentmanagementsystem.config;
+package com.rohitdafda.springbootstudentmanagementsystem.config.security;
 
+import com.rohitdafda.springbootstudentmanagementsystem.config.JwtAuthFilter;
 import com.rohitdafda.springbootstudentmanagementsystem.services.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,6 +41,10 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/auth/admin-login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/student-login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/student/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/student/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/api/student/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/authentication-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )

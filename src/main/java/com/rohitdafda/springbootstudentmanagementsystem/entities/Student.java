@@ -13,7 +13,34 @@ public class Student {
     private int id;
 
     private String name;
+    private String email;
+    private String phoneNumber;
     private LocalDate dob;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public List<StudentAddress> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<StudentAddress> addresses) {
+        this.addresses = addresses;
+    }
+
     private String gender;
     private String studentCode;
     private String motherName;
