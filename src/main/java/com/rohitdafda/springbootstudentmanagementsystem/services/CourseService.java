@@ -3,8 +3,10 @@ package com.rohitdafda.springbootstudentmanagementsystem.services;
 import com.rohitdafda.springbootstudentmanagementsystem.controllers.dto.courses.CreateCourseRequest;
 import com.rohitdafda.springbootstudentmanagementsystem.controllers.dto.courses.UpdateCourseRequest;
 import com.rohitdafda.springbootstudentmanagementsystem.entities.Courses;
+import com.rohitdafda.springbootstudentmanagementsystem.entities.Student;
 import com.rohitdafda.springbootstudentmanagementsystem.exceptions.NotFoundException;
 import com.rohitdafda.springbootstudentmanagementsystem.repository.CourseRepository;
+import com.rohitdafda.springbootstudentmanagementsystem.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +15,11 @@ import java.util.List;
 public class CourseService {
 
     private final CourseRepository repository;
+    private final StudentRepository studentRepository;
 
-    public CourseService(CourseRepository repository) {
+    public CourseService(CourseRepository repository, StudentRepository studentRepository) {
         this.repository = repository;
+        this.studentRepository = studentRepository;
     }
 
     public Courses createCourse(CreateCourseRequest request) {
@@ -56,5 +60,19 @@ public class CourseService {
         Courses course = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Course not found with ID: " + id));
         repository.delete(course);
+    }
+
+    public void assignCoursesToStudent(Integer studentId, List<Integer> courseIds) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new NotFoundException("Student not found with ID: " + studentId));
+
+        List<Courses> courses = repository.findAllById(courseIds);
+
+        if (courses.isEmpty()) {
+            throw new NotFoundException("No valid courses found for provided course IDs.");
+        }
+
+        student.getCourses().addAll(courses);
+        studentRepository.save(student);
     }
 }

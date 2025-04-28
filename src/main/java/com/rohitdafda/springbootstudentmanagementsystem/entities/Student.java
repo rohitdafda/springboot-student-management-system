@@ -106,4 +106,12 @@ public class Student {
     public void setMotherName(String motherName) {
         this.motherName = motherName;
     }
+
+    public List<Courses> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Courses> courses) {
+        this.courses = courses;
+    }
 }

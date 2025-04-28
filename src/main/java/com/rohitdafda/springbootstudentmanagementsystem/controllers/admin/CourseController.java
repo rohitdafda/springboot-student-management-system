@@ -1,6 +1,7 @@
 package com.rohitdafda.springbootstudentmanagementsystem.controllers.admin;
 
 import com.rohitdafda.springbootstudentmanagementsystem.controllers.dto.GlobalResponse;
+import com.rohitdafda.springbootstudentmanagementsystem.controllers.dto.courses.CourseAssignmentRequest;
 import com.rohitdafda.springbootstudentmanagementsystem.controllers.dto.courses.CreateCourseRequest;
 import com.rohitdafda.springbootstudentmanagementsystem.controllers.dto.courses.UpdateCourseRequest;
 import com.rohitdafda.springbootstudentmanagementsystem.entities.Courses;
@@ -60,5 +61,12 @@ public class CourseController {
     public ResponseEntity<GlobalResponse<Object>> deleteCourse(@PathVariable int id) {
         courseService.deleteCourse(id);
         return GlobalResponseHandler.deleted("Course deleted successfully");
+    }
+
+    @Operation(summary = "Assign Courses to Student")
+    @PostMapping("/assign")
+    public ResponseEntity<GlobalResponse<Object>> assignCoursesToStudent(@Valid @RequestBody CourseAssignmentRequest request) {
+        courseService.assignCoursesToStudent(request.getStudentId(), request.getCourseIds());
+        return GlobalResponseHandler.ok(null, "Courses assigned to student successfully.");
     }
 }
