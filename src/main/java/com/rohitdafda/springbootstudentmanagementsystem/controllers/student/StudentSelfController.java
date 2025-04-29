@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import com.rohitdafda.springbootstudentmanagementsystem.controllers.dto.studentAddress.CreateStudentAddressRequest;
 
 @RestController
 @RequestMapping("/api/student")
@@ -19,6 +20,20 @@ public class StudentSelfController {
 
     public StudentSelfController(StudentSelfService studentSelfService) {
         this.studentSelfService = studentSelfService;
+    }
+
+    @Operation(description = "Courses assigned to student search")
+    @GetMapping("/me")
+    public ResponseEntity<GlobalResponse<Object>> myProfile(
+    ) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String studentCode = authentication.getName();
+
+        return GlobalResponseHandler.ok(
+                studentSelfService.getMe(studentCode),
+                "Profile fetched successfully"
+        );
     }
 
     @Operation(description = "Update Profile")
@@ -59,5 +74,13 @@ public class StudentSelfController {
 
         studentSelfService.leaveCourse(studentCode, courseId);
         return GlobalResponseHandler.deleted("Course left successfully");
+    }
+
+    @PutMapping("/profile/address/update/{addressId}")
+    public ResponseEntity<GlobalResponse<Object>> updateAddress(@PathVariable int addressId, @RequestBody CreateStudentAddressRequest request){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String studentCode = authentication.getName();
+
+        return GlobalResponseHandler.ok(studentSelfService.updateAddress(studentCode, addressId, request),"Address updated successfully.");
     }
 }

@@ -6,7 +6,6 @@ public class UpdateStudentProfileRequest {
     private String phoneNumber;
     private String motherName;
     private String fatherName;
-    private String address; // Simple address, or later you can split into fields.
 
     public UpdateStudentProfileRequest() {
     }
@@ -41,13 +40,5 @@ public class UpdateStudentProfileRequest {
 
     public void setFatherName(String fatherName) {
         this.fatherName = fatherName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 }

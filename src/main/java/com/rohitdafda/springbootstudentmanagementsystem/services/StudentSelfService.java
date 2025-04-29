@@ -3,6 +3,7 @@ package com.rohitdafda.springbootstudentmanagementsystem.services;
 import com.rohitdafda.springbootstudentmanagementsystem.controllers.dto.students.UpdateStudentProfileRequest;
 import com.rohitdafda.springbootstudentmanagementsystem.entities.Courses;
 import com.rohitdafda.springbootstudentmanagementsystem.entities.Student;
+import com.rohitdafda.springbootstudentmanagementsystem.entities.StudentAddress;
 import com.rohitdafda.springbootstudentmanagementsystem.exceptions.NotFoundException;
 import com.rohitdafda.springbootstudentmanagementsystem.repository.StudentRepository;
 import org.springframework.stereotype.Service;
@@ -10,13 +11,24 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.rohitdafda.springbootstudentmanagementsystem.controllers.dto.studentAddress.CreateStudentAddressRequest;
+
 @Service
 public class StudentSelfService {
 
     private final StudentRepository studentRepository;
+    private final StudentAddressService studentAddressService;
 
-    public StudentSelfService(StudentRepository studentRepository) {
+    public StudentSelfService(StudentRepository studentRepository, StudentAddressService studentAddressService) {
         this.studentRepository = studentRepository;
+        this.studentAddressService = studentAddressService;
+    }
+
+    public Object getMe(String studentCode) {
+        Student student = studentRepository.findByStudentCode(studentCode)
+                .orElseThrow(() -> new NotFoundException("Student not found"));
+
+        return student;
     }
 
     // Update profile
@@ -59,5 +71,14 @@ public class StudentSelfService {
 
         student.setCourses(updatedCourses);
         studentRepository.save(student);
+    }
+
+    public Object updateAddress(String studentCode, int addressId, CreateStudentAddressRequest address) {
+        Student student = studentRepository.findByStudentCode(studentCode)
+                .orElseThrow(() -> new NotFoundException("Student not found"));
+
+        studentAddressService.update(addressId, address);
+
+        return student.getAddresses();
     }
 }
