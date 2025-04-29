@@ -1,7 +1,10 @@
 package com.rohitdafda.springbootstudentmanagementsystem.config.security;
 
 import com.rohitdafda.springbootstudentmanagementsystem.config.JwtAuthFilter;
+import com.rohitdafda.springbootstudentmanagementsystem.providers.AdminAuthenticationProvider;
+import com.rohitdafda.springbootstudentmanagementsystem.providers.StudentAuthenticationProvider;
 import com.rohitdafda.springbootstudentmanagementsystem.services.UserDetailsServiceImpl;
+import com.rohitdafda.springbootstudentmanagementsystem.services.StudentDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,19 +23,27 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final UserDetailsServiceImpl userDetailsService;
     private final JwtAuthFilter jwtAuthFilter;
 
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService, JwtAuthFilter jwtAuthFilter) {
-        this.userDetailsService = userDetailsService;
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService,
+                          StudentDetailsServiceImpl studentDetailsService,
+                          JwtAuthFilter jwtAuthFilter) {
         this.jwtAuthFilter = jwtAuthFilter;
-
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http, AdminAuthenticationProvider adminAuthenticationProvider, StudentAuthenticationProvider studentAuthenticationProvider) throws Exception {
+        AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
+        builder.authenticationProvider(adminAuthenticationProvider);
+        builder.authenticationProvider(studentAuthenticationProvider);
+        return builder.build();
+    }
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -43,20 +54,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/auth/admin-login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/student-login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/student/**").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/api/student/**").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/api/student/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/authentication-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .authenticationManager(adminAuthenticationManager(http))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
-    }
-
-    @Bean
-    public AuthenticationManager adminAuthenticationManager(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-        return authenticationManagerBuilder.build();
     }
 }

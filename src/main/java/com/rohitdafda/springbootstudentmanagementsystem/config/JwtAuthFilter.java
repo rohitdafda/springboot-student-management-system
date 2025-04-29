@@ -1,14 +1,15 @@
 package com.rohitdafda.springbootstudentmanagementsystem.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rohitdafda.springbootstudentmanagementsystem.controllers.dto.ApiErrorResponse;
-import com.rohitdafda.springbootstudentmanagementsystem.exceptions.AccessDeniedException;
-import com.rohitdafda.springbootstudentmanagementsystem.helpers.JwtHelper;
 import com.rohitdafda.springbootstudentmanagementsystem.services.UserDetailsServiceImpl;
+import com.rohitdafda.springbootstudentmanagementsystem.services.StudentDetailsServiceImpl;
+import com.rohitdafda.springbootstudentmanagementsystem.helpers.JwtHelper;
+import com.rohitdafda.springbootstudentmanagementsystem.controllers.dto.ApiErrorResponse;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,29 +23,32 @@ import java.io.IOException;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
   private final UserDetailsServiceImpl userDetailsService;
+  private final StudentDetailsServiceImpl studentDetailsService;
   private final ObjectMapper objectMapper;
 
-  public JwtAuthFilter(UserDetailsServiceImpl userDetailsService, ObjectMapper objectMapper) {
+  public JwtAuthFilter(UserDetailsServiceImpl userDetailsService,
+                       StudentDetailsServiceImpl studentDetailsService,
+                       ObjectMapper objectMapper) {
     this.userDetailsService = userDetailsService;
+    this.studentDetailsService = studentDetailsService;
     this.objectMapper = objectMapper;
   }
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-      throws ServletException, IOException {
+          throws ServletException, IOException {
     try {
       String authHeader = request.getHeader("Authorization");
 
       String token = null;
       String username = null;
       String role = null;
+
       if (authHeader != null && authHeader.startsWith("Bearer ")) {
         token = authHeader.substring(7);
         username = JwtHelper.extractUsername(token);
         role = JwtHelper.extractRole(token);
       }
-
-      System.out.println(role);
 
       if (token == null) {
         filterChain.doFilter(request, response);
@@ -52,11 +56,21 @@ public class JwtAuthFilter extends OncePerRequestFilter {
       }
 
       if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        UserDetails userDetails;
+
+        if ("admin".equals(role)) {
+          userDetails = userDetailsService.loadUserByUsername(username);
+        } else if ("student".equals(role)) {
+          userDetails = studentDetailsService.loadUserByUsername(username);
+        } else {
+          throw new AccessDeniedException("Invalid user role");
+        }
+
         if (JwtHelper.validateToken(token, userDetails)) {
-          UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, null);
-          authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-          SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+          UsernamePasswordAuthenticationToken authToken =
+                  new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+          authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+          SecurityContextHolder.getContext().setAuthentication(authToken);
         }
       }
 
@@ -72,7 +86,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     try {
       return objectMapper.writeValueAsString(response);
     } catch (Exception e) {
-      return ""; // Return an empty string if serialization fails
+      return "";
     }
   }
 }

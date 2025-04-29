@@ -28,8 +28,8 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthController(@Qualifier("adminAuthenticationManager") AuthenticationManager adminAuthenticationManager) {
-        this.authenticationManager = adminAuthenticationManager;
+    public AuthController(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
     }
 
     @Operation(summary = "Authenticate Admin and return token")
@@ -57,7 +57,7 @@ public class AuthController {
     @PostMapping(value = "/student-login")
     public ResponseEntity<StudentLoginResponse> login(@Valid @RequestBody StudentLoginRequest request) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.dob(), request.studentCode()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.studentCode(), request.dob()));
         } catch (BadCredentialsException e) {
             throw e;
         }
