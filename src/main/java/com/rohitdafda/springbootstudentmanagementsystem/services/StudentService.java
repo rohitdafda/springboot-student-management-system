@@ -28,6 +28,7 @@ public class StudentService {
 
         Student student = new Student();
         student.setStudentCode(newStudentCode);
+        student.setDob(request.dob());
         student.setGender(request.gender());
         student.setName(request.name());
         student.setFatherName(request.fatherName());
