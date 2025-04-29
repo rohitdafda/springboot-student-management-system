@@ -7,6 +7,8 @@ import com.rohitdafda.springbootstudentmanagementsystem.handlers.GlobalResponseH
 import com.rohitdafda.springbootstudentmanagementsystem.services.StudentSelfService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,21 +24,27 @@ public class StudentSelfController {
     @Operation(description = "Update Profile")
     @PutMapping("/profile/update")
     public ResponseEntity<GlobalResponse<Object>> updateProfile(
-            @RequestBody UpdateStudentProfileRequest request,
-            @RequestParam int studentId   // Normally you would get this from logged-in token (not param)
+            @RequestBody UpdateStudentProfileRequest request
     ) {
-        Student updatedStudent = studentSelfService.updateProfile(studentId, request);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String studentCode = authentication.getName();
+
+        Student updatedStudent = studentSelfService.updateProfile(studentCode, request);
         return GlobalResponseHandler.updated(updatedStudent, "Profile updated successfully");
     }
 
     @Operation(description = "Courses assigned to student search")
     @GetMapping("/courses/search")
     public ResponseEntity<GlobalResponse<Object>> searchCourses(
-            @RequestParam int studentId,
             @RequestParam(required = false) String name
     ) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String studentCode = authentication.getName();
+
         return GlobalResponseHandler.ok(
-                studentSelfService.searchCourses(studentId, name),
+                studentSelfService.searchCourses(studentCode, name),
                 "Courses fetched successfully"
         );
     }
@@ -44,10 +52,12 @@ public class StudentSelfController {
     @Operation(description = "Leave course by student")
     @DeleteMapping("/courses/leave/{courseId}")
     public ResponseEntity<GlobalResponse<Object>> leaveCourse(
-            @RequestParam int studentId,
             @PathVariable int courseId
     ) {
-        studentSelfService.leaveCourse(studentId, courseId);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String studentCode = authentication.getName();
+
+        studentSelfService.leaveCourse(studentCode, courseId);
         return GlobalResponseHandler.deleted("Course left successfully");
     }
 }

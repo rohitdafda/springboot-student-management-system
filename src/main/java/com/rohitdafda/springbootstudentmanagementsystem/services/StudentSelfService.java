@@ -20,9 +20,9 @@ public class StudentSelfService {
     }
 
     // Update profile
-    public Student updateProfile(int studentId, UpdateStudentProfileRequest request) {
-        Student student = studentRepository.findById(studentId)
-                .orElseThrow(() -> new NotFoundException("Student not found with ID: " + studentId));
+    public Student updateProfile(String studentCode, UpdateStudentProfileRequest request) {
+        Student student = studentRepository.findByStudentCode(studentCode)
+                .orElseThrow(() -> new NotFoundException("Student not found with ID: " + studentCode));
 
         if (request.getEmail() != null) student.setEmail(request.getEmail());
         if (request.getPhoneNumber() != null) student.setPhoneNumber(request.getPhoneNumber());
@@ -33,8 +33,8 @@ public class StudentSelfService {
     }
 
     // Search assigned courses
-    public List<Courses> searchCourses(int studentId, String courseName) {
-        Student student = studentRepository.findById(studentId)
+    public List<Courses> searchCourses(String studentCode, String courseName) {
+        Student student = studentRepository.findByStudentCode(studentCode)
                 .orElseThrow(() -> new NotFoundException("Student not found"));
 
         List<Courses> assignedCourses = student.getCourses();
@@ -49,8 +49,8 @@ public class StudentSelfService {
     }
 
     // Leave course
-    public void leaveCourse(int studentId, int courseId) {
-        Student student = studentRepository.findById(studentId)
+    public void leaveCourse(String studentCode, int courseId) {
+        Student student = studentRepository.findByStudentCode(studentCode)
                 .orElseThrow(() -> new NotFoundException("Student not found"));
 
         List<Courses> updatedCourses = student.getCourses().stream()
