@@ -58,9 +58,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
       if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
         UserDetails userDetails;
 
-        if ("admin".equals(role)) {
+        if ("ADMIN".equals(role)) {
           userDetails = userDetailsService.loadUserByUsername(username);
-        } else if ("student".equals(role)) {
+        } else if ("STUDENT".equals(role)) {
           userDetails = studentDetailsService.loadUserByUsername(username);
         } else {
           throw new AccessDeniedException("Invalid user role");

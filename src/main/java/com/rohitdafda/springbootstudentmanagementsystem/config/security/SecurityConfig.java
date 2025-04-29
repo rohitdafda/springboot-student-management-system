@@ -51,11 +51,13 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/api/auth/admin-login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/student-login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/student/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/authentication-docs/**").permitAll()
-                        .anyRequest().authenticated()
+//                        .requestMatchers(HttpMethod.POST, "/api/auth/admin-login").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/api/auth/student-login").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+                                .requestMatchers("/api/student/**").hasRole("STUDENT")
+                                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/authentication-docs/**").permitAll()
+                                .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

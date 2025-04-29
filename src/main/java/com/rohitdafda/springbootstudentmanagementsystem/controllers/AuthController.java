@@ -45,7 +45,7 @@ public class AuthController {
             throw e;
         }
 
-        String token = JwtHelper.generateToken(request.email(),"admin");
+        String token = JwtHelper.generateToken(request.email(),"ADMIN");
         return ResponseEntity.ok(new AdminLoginResponse(request.email(), token));
     }
 
@@ -62,7 +62,7 @@ public class AuthController {
             throw e;
         }
 
-        String token = JwtHelper.generateToken(request.studentCode(),"student");
+        String token = JwtHelper.generateToken(request.studentCode(),"STUDENT");
         return ResponseEntity.ok(new StudentLoginResponse(request.studentCode(), token));
     }
 }
